@@ -34,6 +34,10 @@ path = "src/bin/raster.rs"
 name = "raster2d"
 path = "src/bin/raster2d.rs"
 
+[[bin]]
+name = "raster3d"
+path = "src/bin/raster3d.rs"
+
 [profile.release]
 opt-level = 3
 lto = "thin"
