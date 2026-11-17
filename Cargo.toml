@@ -50,6 +50,10 @@ path = "src/bin/mushroom_gpu.rs"
 name = "mushroom_vol"
 path = "src/bin/mushroom_vol.rs"
 
+[[bin]]
+name = "trit_visibility"
+path = "src/bin/trit_visibility.rs"
+
 [profile.release]
 opt-level = 3
 lto = "thin"
