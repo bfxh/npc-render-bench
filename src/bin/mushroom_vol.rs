@@ -58,7 +58,7 @@ fn fs(@builtin(position) frag: vec4<f32>) -> @location(0) vec4<f32> {
     var acc = vec3<f32>(0.0);
     var trans = 1.0;
 
-    for (var i = 0; i < 96; i = i + 1) {
+    for (var i = 0; i < 1024; i = i + 1) {
         let p = ro + rd * t;
         // 蘑菇包络：球形衰减
         let r = length(p * vec3<f32>(1.0, 1.15, 1.0));
@@ -75,7 +75,7 @@ fn fs(@builtin(position) frag: vec4<f32>) -> @location(0) vec4<f32> {
             trans = trans * (1.0 - dens * 0.35);
             if (trans < 0.02) { break; }
         }
-        t = t + 0.055;
+        t = t + 0.010;
         if (t > 6.0) { break; }
     }
 
@@ -448,7 +448,7 @@ impl State {
             self.frame_ms
         );
         let line2 = format!(
-            "{}x{} | 96 STEP RAYMARCH | FBM 5 OCT | ESC",
+            "{}x{} | 512 STEP RAYMARCH | KERNEL 5 ITER | ESC",
             self.config.width, self.config.height
         );
         draw_text(&mut self.overlay_pixels, 16, 6, &line1, 2, ok);
@@ -527,6 +527,11 @@ impl State {
             pass.draw(0..6, 0..1);
         }
         self.queue.submit([enc.finish()]);
+        // 等 GPU 真正画完这一帧，否则 FPS 统计的是 CPU 提交速率（虚高）
+        let _ = self.device.poll(wgpu::PollType::Wait {
+            submission_index: None,
+            timeout: None,
+        });
         self.queue.present(output);
 
         self.frame_count += 1;
