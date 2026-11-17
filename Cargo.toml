@@ -38,6 +38,18 @@ path = "src/bin/raster2d.rs"
 name = "raster3d"
 path = "src/bin/raster3d.rs"
 
+[[bin]]
+name = "mushroom"
+path = "src/bin/mushroom.rs"
+
+[[bin]]
+name = "mushroom_gpu"
+path = "src/bin/mushroom_gpu.rs"
+
+[[bin]]
+name = "mushroom_vol"
+path = "src/bin/mushroom_vol.rs"
+
 [profile.release]
 opt-level = 3
 lto = "thin"
