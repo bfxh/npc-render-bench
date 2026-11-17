@@ -26,6 +26,10 @@ path = "src/bin/video.rs"
 name = "bench"
 path = "src/bin/bench.rs"
 
+[[bin]]
+name = "raster"
+path = "src/bin/raster.rs"
+
 [profile.release]
 opt-level = 3
 lto = "thin"
